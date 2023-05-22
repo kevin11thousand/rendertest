@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <!-- Add Bootstrap CSS link here -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1><%= title %></h1>
+
+    <% if (successMessage) { %>
+      <div class="alert alert-success" role="alert">
+        <%= successMessage %>
+      </div>
+    <% } %>
+
+    <% if (errorMessage) { %>
+      <div class="alert alert-danger" role="alert">
+        <%= errorMessage %>
+      </div>
+    <% } %>
+
+    <form method="POST" action="/admin-backup">
+      <!-- Add form elements here -->
+      <button type="submit" class="btn btn-primary">Backup</button>
+      <a href="/admin/logout" class="btn btn-primary">Logout</a>
+    </form>
+  </div>
+
+  <!-- Add Bootstrap JS script here -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

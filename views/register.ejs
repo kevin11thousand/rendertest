@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Registration Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding-top: 50px;
+		}
+
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+
+		.card {
+			border: none;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: #007bff;
+		}
+
+		table {
+			margin-top: 20px;
+		}
+
+		th, td {
+			padding: 12px;
+			text-align: left;
+		}
+
+		.btn-custom {
+			background-color: #007bff;
+			color: #fff;
+			border-color: #007bff;
+		}
+
+		.btn-custom:hover {
+			background-color: #0069d9;
+			border-color: #0062cc;
+		}
+	</style>
+
+</head>
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="/admin/admincharts">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> 
+    </nav>
+  </header>
+
+ 
+
+  <div class="container mt-5">
+    <h1 >Registration Form</h1>
+    <% if (typeof error !== 'undefined' && error) { %>
+			<div class="alert alert-danger" role="alert">
+				<%= error %>
+			</div> 
+
+    <% } else if (typeof successMessage !== 'undefined' && successMessage) { %>
+      <div class="alert alert-success" role="alert">
+        <%= successMessage %>
+      </div>
+    <% } %>
+    
+
+    <form action="/register" method="post">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label for="first_name">First Name:</label>
+          <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="firstname" required>
+        </div> 
+        <div class="col-md-4 mb-3">
+          <label for="last_name">Last Name:</label>
+          <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="lastname" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="gender">Gender:</label>
+          <select class="form-control" id="gender" name="gender" required>
+            <option selected disabled>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div> 
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="password">Password:</label>
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="togglePassword">Show</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="user_type">User Type:</label>
+          <select class="form-control" id="user_type" name="usertype" required>
+            <option selected disabled>Select User Type</option>
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
+            <option value="User">User</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Register</button>
+    </form>
+
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+      <div class="container-fluid">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Create User</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/admindashboard">Admin Records</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/managerdashboard">Manager Records</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/userdashboard">User Records</a>
+          </li> 
+        </ul>
+      </div>
+    </nav>
+    <script>
+      // Toggle password visibility
+      const togglePassword = document.querySelector('#togglePassword');
+      const passwordInput = document.querySelector('#password');
+    
+      togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? 'Show' : 'Hide';
+      });
+    </script>
+  </div>
+	</body>
+	</html>

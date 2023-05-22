@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SparkFlow - Admin Management Dashboard - Charts</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding-top:30px;
+		}
+
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+
+		.card {
+			border: none;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: #007bff;
+		}
+
+		.btn-custom {
+			background-color: #007bff;
+			color: #fff;
+			border-color: #007bff;
+		}
+
+		.btn-custom:hover {
+			background-color: #0069d9;
+			border-color: #0062cc;
+		}
+        
+        .chart-container {
+            position: relative;
+            height: 500px;
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        #userChart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .filter-buttons {
+            margin-top: 2px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .filter-buttons button {
+            margin: 0 5px;
+        }
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<a class="navbar-brand" href="/admin/admincharts">SparkFlow</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button> 
+      		<div class="collapse navbar-collapse" id="navbarNav">
+        		<ul class="navbar-nav">
+          			<li class="nav-item">
+            			<a class="nav-link" href="/admin/adminprofile">Profile</a>
+          			</li>
+          			<li class="nav-item">
+            			<a class="nav-link" href="/admin/logout">Logout</a>
+          			</li>
+        		</ul>
+      		</div>
+		</nav>
+	</header>
+    
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+		<div class="container-fluid">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/register">Create User</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/admin/admindashboard">Admin Records</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/admin/managerdashboard">Manager Records</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/admin/userdashboard">User Records</a>
+				</li> 
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-5"> 
+		<h1>Admin Charts</h1>
+		<div class="chart-container">
+            <canvas id="userChart"></canvas>
+        </div>
+        <div class="filter-buttons">
+            <button class="btn btn-secondary" id="filterAll">All</button>
+            <button class="btn btn-secondary" id="filterAdmin">Admin</button>
+            <button class="btn btn-secondary" id="filterManager">Manager</button>
+            <button class="btn btn-secondary" id="filterUser">User</button>
+        </div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const adminCount = <%= adminCount %>;
+			const managerCount = <%= managerCount %>;
+			const userCount = <%= userCount %>;
+
+            const userChart = new Chart(document.getElementById('userChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Admin', 'Manager', 'User'],
+                    datasets: [{
+                        label: 'User Count',
+                        data: [adminCount, managerCount, userCount],
+                        backgroundColor: [
+                            'rgba(10, 162, 235, 0.7)',
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(75, 192, 192, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            precision: 0
+                        }
+                    }
+                }
+            });
+
+            const filterButtons = document.querySelectorAll('.filter-buttons button');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filterValue = this.id.replace('filter', '').toLowerCase();
+                    userChart.data.datasets[0].data = getFilteredData(filterValue);
+                    userChart.update();
+                });
+            });
+
+            function getFilteredData(filterValue) {
+                switch (filterValue) {
+                    case 'all':
+                        return [adminCount, managerCount, userCount];
+                    case 'admin':
+                        return [adminCount, 0, 0];
+                    case 'manager':
+                        return [0, managerCount, 0];
+                    case 'user':
+                        return [0, 0, userCount];
+                    default:
+                        return [];
+                }
+            }
+		});
+	</script>
+</body>
+</html>

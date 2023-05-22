@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SparkFlow - Admin Edit User</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding-top: 50px;
+		}
+
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+
+		.card {
+			border: none;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: #007bff;
+		}
+
+		table {
+			margin-top: 20px;
+		}
+
+		th, td {
+			padding: 12px;
+			text-align: left;
+		}
+
+		.btn-custom {
+			background-color: #007bff;
+			color: #fff;
+			border-color: #007bff;
+		}
+
+		.btn-custom:hover {
+			background-color: #0069d9;
+			border-color: #0062cc;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<a class="navbar-brand" href="/manager/manager">SparkFlow</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button> 
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/manager/managerprofile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+		</nav>
+	</header>
+
+    <div class="container mt-5">
+        <h1>Edit User Data</h1>
+        
+		<% if (typeof error !== 'undefined' && error) { %>
+			<div class="alert alert-danger" role="alert">
+			  <%= error %>
+			</div> 
+		  <% } else if (typeof success !== 'undefined' && success) { %>
+			<div class="alert alert-success" role="alert">
+			  <%= success %>
+			</div>
+		  <% } %>
+      
+        <div class="row">
+          <div class="col-md-6">
+            <form action="/manager/manageredituserrecord" method="post">
+              <input type="hidden" name="userId" value="<%= user.id %>">
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+              </div>
+              <div class="form-group">
+                <label for="usertype">User Type:</label>
+                <select class="form-control" id="usertype" name="usertype" required> 
+                  <option value="Manager" <%= user.usertype === 'Manager' ? 'selected' : '' %>>Manager</option>
+                  <option value="User" <%= user.usertype === 'User' ? 'selected' : '' %>>User</option>
+                </select>
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Update Data</button>
+              <a href="/manager/manager" class="btn btn-secondary">Cancel</a>
+            </form>
+          </div><div class="col-md-6">
+            <form action="/manager/managerupdateuserpassword" method="post">
+              <input type="hidden" name="userId" value="<%= user.id %>">
+              <div class="form-group">
+                <label for="newPassword">New Password:</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="#newPassword">Show</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="#confirmPassword">Show</button>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <button type="submit" class="btn btn-primary">Update Password</button>
+              <a href="/manager/manager" class="btn btn-secondary">Cancel</a>
+            </form>
+          </div>
+          
+          <script>
+            // Toggle password visibility
+            const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+            
+            togglePasswordButtons.forEach(function(button) {
+              button.addEventListener('click', function () {
+                const targetInputId = this.getAttribute('data-target');
+                const targetInput = document.querySelector(targetInputId);
+            
+                if (targetInput.getAttribute('type') === 'password') {
+                  targetInput.setAttribute('type', 'text');
+                  this.textContent = 'Hide';
+                } else {
+                  targetInput.setAttribute('type', 'password');
+                  this.textContent = 'Show';
+                }
+              });
+            });
+          </script>
+          
+        </div>
+      </div>
+       
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

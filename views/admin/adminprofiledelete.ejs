@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Management Dashboard - Delete Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding-top: 50px;
+		}
+
+		header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+
+		.card {
+			border: none;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-bottom: 20px;
+			color: #007bff;
+		}
+
+		table {
+			margin-top: 20px;
+		}
+
+		th, td {
+			padding: 12px;
+			text-align: left;
+		}
+
+		.btn-custom {
+			background-color: #007bff;
+			color: #fff;
+			border-color: #007bff;
+		}
+
+		.btn-custom:hover {
+			background-color: #0069d9;
+			border-color: #0062cc;
+		}
+	</style>
+
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/admin/admincharts">SparkFlow</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> 
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/adminprofile">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  
+    
+ 
+    <div class="container mt-5">
+        <h1>Delete Profile</h1><div class="row">
+          <div class="col-md-6">
+            <p>Please confirm your password to delete your account:</p>
+            <form action="/admin/adminprofiledeleteconfirm" method="POST">
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="password" name="password">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary toggle-password" type="button" data-target="#password">Show</button>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-danger">Confirm Deletion</button>
+              <a class="btn btn-secondary" href="/admin/adminprofile">Cancel</a>
+            </form>
+          </div>
+        </div>
+        
+        <script>
+          // Toggle password visibility
+          const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+          
+          togglePasswordButtons.forEach(function(button) {
+            button.addEventListener('click', function () {
+              const targetInputId = this.getAttribute('data-target');
+              const targetInput = document.querySelector(targetInputId);
+          
+              if (targetInput.getAttribute('type') === 'password') {
+                targetInput.setAttribute('type', 'text');
+                this.textContent = 'Hide';
+              } else {
+                targetInput.setAttribute('type', 'password');
+                this.textContent = 'Show';
+              }
+            });
+          });
+        </script>
+        
+      </div>      
+
+      
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+        <div class="container-fluid">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Create User</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/admindashboard">Admin Records</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/managerdashboard">Manager Records</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/userdashboard">User Records</a>
+            </li> 
+          </ul>
+        </div>
+      </nav>
+    
+      
+      <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-n/4gHWY7TPBZj7Fk8g9WEQ0tJvQ+fdyG/m8iXMHuZQM4XUOjuj9ZzQGsbyRocI2IJHVv5h0ST2qvQa0mGfHv8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Bootstrap Bundle -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+    </html>
+    
